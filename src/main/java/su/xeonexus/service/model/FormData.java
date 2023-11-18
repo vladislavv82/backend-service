@@ -9,12 +9,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FormData {
-    public FormData(Long id, String name, String user_query, String phone) {
+    public FormData(Long id, String uid, String name, String user_query, String phone) {
         this.id = id;
+        this.uid = uid;
         this.name = name;
         this.user_query = user_query;
         this.phone = phone;
-
     }
 
     public FormData() {
@@ -23,9 +23,11 @@ public class FormData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String uid;
     private String name;
     private String user_query;
     private String phone;
+
 
     private String predictedCategory;
     private String predictedImportance;

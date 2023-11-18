@@ -1,6 +1,7 @@
 package su.xeonexus.service.service;
 
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,6 +11,7 @@ import su.xeonexus.service.dto.FormInput;
 import su.xeonexus.service.model.FormData;
 import su.xeonexus.service.repository.FormDataRepository;
 
+import java.util.List;
 
 
 /**
@@ -36,16 +38,39 @@ public class FormDataService {
     public FormData createFormData(FormInput input) {
 
         // Создание нового экземпляра FormData с данными, введенными пользователем.
-        FormData formData = new FormData(null, input.getName(), input.getUser_query(), input.getPhone());
+        FormData formData = new FormData(null,input.getUid(), input.getName(), input.getUser_query(), input.getPhone());
 
         // Вызов внешнего сервиса для получения предсказаний.
         ExternalServiceResponse response = callExternalService(input.getUser_query());
 
         // Установка предсказанных значений в объект FormData.
-        //formData.setPredictedCategory(response.getPredictedCategory());
-        //formData.setPredictedImportance(response.getPredictedImportance());
+        formData.setPredictedCategory(response.getPredicted_category());
+        formData.setPredictedImportance(response.getPredicted_importance());
 
         return repository.save(formData);
+    }
+
+    /**
+     * Получает объект FormData по его идентификатору.
+     *
+     * @param id Идентификатор объекта FormData, который нужно извлечь.
+     * @return FormData объект, соответствующий предоставленному идентификатору.
+     * @throws EntityNotFoundException Если объект FormData с данным идентификатором не найден.
+     */
+    public FormData getFormDataById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("FormData not found with id: " + id));
+    }
+
+    /**
+     * Возвращает список всех объектов FormData.
+     *
+     * @return Список всех объектов FormData, доступных в базе данных.
+     * Этот метод полезен, когда нужно получить полный обзор всех записей,
+     * хранящихся в базе данных.
+     */
+    public List<FormData> getAllFormData() {
+        return repository.findAll();
     }
 
 

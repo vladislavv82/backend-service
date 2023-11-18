@@ -9,12 +9,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FormInput {
-    public FormInput(String name, String user_query, String phone) {
+    public FormInput(String uid, String name, String user_query, String phone) {
+        this.uid = uid;
         this.name = name;
         this.user_query = user_query;
         this.phone = phone;
     }
 
+    private String uid;
 
     @NotBlank(message = "Name is mandatory")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
@@ -28,6 +30,8 @@ public class FormInput {
     @Pattern(regexp = "[0-9]+", message = "Phone number can only contain digits")
     @Size(min = 10, max = 15, message = "Phone number must be between 10 and 15 digits")
     private String phone;
+
+
 
     // Геттеры и сеттеры для каждого поля
 }
