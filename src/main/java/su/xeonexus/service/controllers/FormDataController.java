@@ -1,17 +1,16 @@
 package su.xeonexus.service.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import su.xeonexus.service.dto.FormInput;
 import su.xeonexus.service.model.FormData;
 import su.xeonexus.service.service.FormDataService;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FormDataController {
 
     private final FormDataService service;
@@ -22,7 +21,7 @@ public class FormDataController {
     }
 
     @PostMapping("/submit-form")
-    public ResponseEntity<FormData> createFormData(@RequestBody FormInput input) {
+    public ResponseEntity<?> createFormData(@Valid @RequestBody FormInput input) {
         FormData formData = service.createFormData(input);
         return ResponseEntity.ok(formData);
     }
