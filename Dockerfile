@@ -16,7 +16,7 @@ VOLUME /tmp
 
 # Со временем у проекта будет изменяться версия, и чтобы не изменять всякий раз
 # этот Dockerfile имя jar-файла вынесем в аргумент.
-ARG JAR_FILE=sandbox-greetings-gradle-23.1.1-SNAPSHOT-plain.jar
+ARG JAR_FILE=service-0.0.1-SNAPSHOT-plain.jar
 
 # Создадим рабочую директорию проекта
 WORKDIR /application
@@ -28,4 +28,4 @@ COPY build/dependency lib
 # В конце укажем точку входа. Выбран вариант с использованием exec для того, чтобы
 # можно было передать в строку запуска дополнительные параметры запуска - JAVA_OPTS, а так же
 # ${0} и ${@} для передачи аргументов запуска.
-ENTRYPOINT exec java ${JAVA_OPTS} -cp lib/*:application.jar pro.akosarev.sandbox.GreetingsGradleApplication ${0} ${@}
+ENTRYPOINT exec java ${JAVA_OPTS} -cp lib/*:application.jar su.xeonexus.service.ServiceApplication ${0} ${@}
