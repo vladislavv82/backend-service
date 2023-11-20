@@ -11,7 +11,7 @@ import su.xeonexus.service.service.FirebaseService;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "https://frontend.xeonexus.su/")
 public class AdminController {
 
     @Autowired

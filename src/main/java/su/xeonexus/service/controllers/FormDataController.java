@@ -12,8 +12,8 @@ import su.xeonexus.service.service.FormDataService;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "https://frontend.xeonexus.su/")
 @RequestMapping("/api")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FormDataController {
 
     private final FormDataService service;

@@ -86,7 +86,7 @@ public class FormDataService {
         request.setUser_query(user_query);
 
         // URL внешнего сервиса
-        String url = "http://127.0.0.1:8000/predict/";
+        String url = "http://localhost:8000/predict/";
         // Отправка запроса и получение ответа от внешнего сервиса.
         return restTemplate.postForObject(url, request, ExternalServiceResponse.class);
     }
